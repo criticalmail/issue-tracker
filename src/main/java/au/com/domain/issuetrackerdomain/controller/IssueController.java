@@ -29,6 +29,11 @@ public class IssueController {
 	@Autowired
 	IssueService service;
 
+	/**
+	 * Get an issue
+	 * @param id
+	 * @return
+	 */
 	@Operation(summary = "Get an issue",
 			description = "Retrieves and returns issue with id ")
 	@ApiResponse(
@@ -50,6 +55,12 @@ public class IssueController {
 		return service.getIssueById(id);
 	}
 
+	
+	/**
+	 * Create an issue
+	 * @param i
+	 * @return
+	 */
 	@Operation(summary = "Create an issue",
 			description = "Create an issue ")
 	@ApiResponse(
@@ -70,6 +81,12 @@ public class IssueController {
 		return service.createIssue(i);
 	}
 
+	
+	/**
+	 * Update an issue
+	 * @param i
+	 * @return
+	 */
 	@Operation(summary = "Update an issue",
 			description = "Update an issue")
 	@ApiResponse(
@@ -88,6 +105,12 @@ public class IssueController {
 		return service.update(i);
 	}
 
+	
+	/**
+	 * Delete an issue
+	 * @param id
+	 * @return
+	 */
 	@Operation(summary = "Delete an issue",
 			description = "Delete an issue")
 	@ApiResponse(
@@ -108,6 +131,17 @@ public class IssueController {
 		return service.deleteIssueById(id);
 	}
 
+	
+	/**
+	 * Filter Issue
+	 * @param status
+	 * @param created
+	 * @param completed
+	 * @param assignee
+	 * @param reporter
+	 * @param order
+	 * @return
+	 */
 	//http://localhost:8080/v1/issue/filter?status=done&created=2017-07-01&completed=2017-08-30&assignee=h.humble&reporter=h.humble&order=desc
 	@Operation(summary = "Filter issue",
 			description = "Filtering issue with status, created date, completed date, assignee, reporter, order")
@@ -141,6 +175,13 @@ public class IssueController {
 
 	}
 	
+	
+	/**
+	 * Get issue by pagination
+	 * @param page
+	 * @param max
+	 * @return
+	 */
 	@Operation(summary = "Get issues by pagination",
 			description = "Get issues by pagination")
 	@ApiResponse(

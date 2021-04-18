@@ -19,6 +19,11 @@ public class CommentController
 	@Autowired
 	CommentService service;
 	
+	/**
+	 * Add comment
+	 * @param comment
+	 * @return
+	 */
 	@Operation(summary = "Create a comment",
 			description = "Create a comment")
 	@ApiResponse(
