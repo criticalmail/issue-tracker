@@ -14,7 +14,7 @@ I edited the SQL to make it run on the H2 database without the flyway.
 	gradle bootRun
 	
 
-
+OpenAPI3.0 / Swagger is available on /swagger-ui.html
 
 
 ##### From Domain #####
