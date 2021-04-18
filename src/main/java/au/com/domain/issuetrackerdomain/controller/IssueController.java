@@ -40,8 +40,11 @@ public class IssueController {
 	@ApiResponse(
 			responseCode = "200", 
 			description = "Success | OK",  
-			content = @Content(schema = @Schema(implementation = Issue.class))
+			content = @Content(
+					schema = @Schema(implementation = Issue.class)
+					, mediaType = "application/json")
 			)
+	//, content = @Content(mediaType = "text/plain")
 	@GetMapping(
 			path="/{id}", 
 			produces = "application/json" )
@@ -56,7 +59,9 @@ public class IssueController {
 			description = "Create an issue ")
 	@ApiResponse(
 			responseCode = "201", 
-			description = "Created"
+			description = "Created",  
+			content = @Content(
+					mediaType = "text/plain")
 			)
 	@PostMapping(
 			path="", 
@@ -74,7 +79,10 @@ public class IssueController {
 			description = "Update an issue")
 	@ApiResponse(
 			responseCode = "200", 
-			description = "Success | OK")
+			description = "Success | OK",  
+			content = @Content(
+					mediaType = "text/plain")
+			)
 	@PutMapping(
 			path="", 
 			consumes = "application/json" )
@@ -89,7 +97,10 @@ public class IssueController {
 			description = "Delete an issue")
 	@ApiResponse(
 			responseCode = "200", 
-			description = "Success | OK")
+			description = "Success | OK",  
+			content = @Content(
+					mediaType = "text/plain")
+			)
 	@DeleteMapping(
 			path="/{id}" )
 	public boolean deleteIssueById(
