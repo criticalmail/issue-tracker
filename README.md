@@ -6,6 +6,9 @@ I re-created the entire project in Spring boot 2.3.x, Java 11 and avoided flyway
 
 I edited the SQL to make it run on the H2 database without the flyway.
 
+The project is refactored based on the review.
+
+OpenAPI3.0 / Swagger is available on /swagger-ui.html
 
 	gradle --refresh-dependencies
 
@@ -13,8 +16,6 @@ I edited the SQL to make it run on the H2 database without the flyway.
 
 	gradle bootRun
 	
-
-OpenAPI3.0 / Swagger is available on /swagger-ui.html
 
 
 ##### From Domain #####
