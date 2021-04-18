@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import au.com.domain.issuetrackerdomain.model.Issue;
-import au.com.domain.issuetrackerdomain.service.IssuePaginationService;
 import au.com.domain.issuetrackerdomain.service.IssueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,9 +29,6 @@ public class IssueController {
 	@Autowired
 	IssueService service;
 
-	@Autowired
-	IssuePaginationService paginationService;
-
 	@Operation(summary = "Get an issue",
 			description = "Retrieves and returns issue with id ")
 	@ApiResponse(
@@ -44,12 +38,13 @@ public class IssueController {
 					schema = @Schema(implementation = Issue.class)
 					, mediaType = "application/json")
 			)
-	//, content = @Content(mediaType = "text/plain")
 	@GetMapping(
 			path="/{id}", 
 			produces = "application/json" )
 	public Issue getIssueById(
-			@Parameter(description="ID to be obtained. Cannot be empty.", required=true)
+			@Parameter(
+					example= "1",
+					description="ID to be obtained. Cannot be empty.", required=true)
 			@PathVariable long id) 
 	{
 		return service.getIssueById(id);
@@ -104,68 +99,68 @@ public class IssueController {
 	@DeleteMapping(
 			path="/{id}" )
 	public boolean deleteIssueById(
-			@Parameter(description="ID to be obtained. Cannot be empty.", required=true)
+			@Parameter(
+					example="1", 
+					description="ID to be obtained. Cannot be empty.", required=true)
 			@PathVariable long id
 			) 
 	{
 		return service.deleteIssueById(id);
 	}
 
-
-
-
-	@RequestMapping( 
-			value = "/filter-by-assignee/{username}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> filterByAssignee(@PathVariable String username) 
+	//http://localhost:8080/v1/issue/filter?status=done&created=2017-07-01&completed=2017-08-30&assignee=h.humble&reporter=h.humble&order=desc
+	@Operation(summary = "Filter issue",
+			description = "Filtering issue with status, created date, completed date, assignee, reporter, order")
+	@ApiResponse(
+			responseCode = "200", 
+			description = "Success | OK",  
+			content = @Content(
+					array = @ArraySchema(schema = @Schema(implementation = Issue.class)), 
+					mediaType = "application/json"
+					)
+			)
+	@GetMapping( 
+			path = "/filter",
+			produces = "application/json" )
+	public List<Issue> filterIssue(
+			@Parameter(example= "done", description="Status to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("status") String status,
+			@Parameter(example="2017-07-01", description="Created date to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("created") String created,
+			@Parameter(example="2017-08-30", description="Completed date to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("completed") String completed,
+			@Parameter(example="h.humble", description="Assignee to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("assignee") String assignee,
+			@Parameter(example="h.humble", description="Reproter to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("reporter") String reporter,
+			@Parameter(example="desc or asc", description="Order to bo obtained. Cannot be empty. eg. desc = descending and asc = ascending", required=true)
+			@RequestParam("order") String order
+			) 
 	{
-		return service.filterByAssignee(username);
+		return service.filter(status,  created, completed, assignee, reporter, order);
+
 	}
-
-	@RequestMapping( 
-			value = "/filter-by-reporter/{username}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> filterByReporter(@PathVariable String username) 
+	
+	@Operation(summary = "Get issues by pagination",
+			description = "Get issues by pagination")
+	@ApiResponse(
+			responseCode = "200", 
+			description = "Success | OK",  
+			content = @Content(
+					array = @ArraySchema(schema = @Schema(implementation = Issue.class)), 
+					mediaType = "application/json"
+					)
+			)
+	@GetMapping( 
+			path = "/pagination",
+			produces = "application/json" )
+	public List<Issue> getIssueByPagination(
+			@Parameter(example= "1", description="page to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("page") int page,
+			@Parameter(example= "10", description="maximum element to bo obtained. Cannot be empty.", required=true)
+			@RequestParam("max") int max) 
 	{
-		return service.filterByReporter(username);
-	}
-
-	@RequestMapping( 
-			value = "/filter-by-status/{status}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> filterIssuesByStatus(@PathVariable String status) 
-	{
-		return service.filterIssuesByStatus(status);
-	}
-
-	@RequestMapping( 
-			value = "/filter-by-dates/{created}/{completed}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> filterIssuesByDate(@PathVariable String created, @PathVariable String completed) 
-	{
-		return service.filterIssuesByDate(created, completed);
-	}
-
-	@RequestMapping( 
-			value = "/sort-by-created/{sortOrder}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> sortByCreatedDate(@PathVariable String sortOrder) 
-	{
-		return service.sortByCreatedDate(sortOrder);
-	}
-
-	@RequestMapping( 
-			value = "/sort-by-page/{page}/{maxElements}",
-			method = RequestMethod.GET )
-	@ResponseBody
-	public List<Issue> getIssueByPagination(@PathVariable int page, @PathVariable int maxElements) 
-	{
-		return paginationService.getIssueByPagination(page, maxElements);
+		return service.getIssueByPagination(page, max);
 	}
 
 } // End of class
