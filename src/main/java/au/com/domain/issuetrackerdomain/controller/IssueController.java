@@ -43,7 +43,7 @@ public class IssueController {
 			produces = "application/json" )
 	public Issue getIssueById(
 			@Parameter(
-					example= "1",
+					example= "eg. 1",
 					description="ID to be obtained. Cannot be empty.", required=true)
 			@PathVariable long id) 
 	{
@@ -100,7 +100,7 @@ public class IssueController {
 			path="/{id}" )
 	public boolean deleteIssueById(
 			@Parameter(
-					example="1", 
+					example="eg. 1", 
 					description="ID to be obtained. Cannot be empty.", required=true)
 			@PathVariable long id
 			) 
@@ -123,17 +123,17 @@ public class IssueController {
 			path = "/filter",
 			produces = "application/json" )
 	public List<Issue> filterIssue(
-			@Parameter(example= "done", description="Status to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example= "eg. done", description="Status to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("status") String status,
-			@Parameter(example="2017-07-01", description="Created date to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example="eg. 2017-07-01", description="Created date to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("created") String created,
-			@Parameter(example="2017-08-30", description="Completed date to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example="eg. 2017-08-30", description="Completed date to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("completed") String completed,
-			@Parameter(example="h.humble", description="Assignee to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example="eg. h.humble", description="Assignee to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("assignee") String assignee,
-			@Parameter(example="h.humble", description="Reproter to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example="eg. h.humble", description="Reproter to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("reporter") String reporter,
-			@Parameter(example="desc or asc", description="Order to bo obtained. Cannot be empty. eg. desc = descending and asc = ascending", required=true)
+			@Parameter(example="eg. desc", description="Order to bo obtained. Cannot be empty. eg. desc = descending and asc = ascending", required=true)
 			@RequestParam("order") String order
 			) 
 	{
@@ -155,9 +155,9 @@ public class IssueController {
 			path = "/pagination",
 			produces = "application/json" )
 	public List<Issue> getIssueByPagination(
-			@Parameter(example= "1", description="page to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example= "eg. 1", description="page to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("page") int page,
-			@Parameter(example= "10", description="maximum element to bo obtained. Cannot be empty.", required=true)
+			@Parameter(example= "eg. 10", description="maximum element to bo obtained. Cannot be empty.", required=true)
 			@RequestParam("max") int max) 
 	{
 		return service.getIssueByPagination(page, max);
