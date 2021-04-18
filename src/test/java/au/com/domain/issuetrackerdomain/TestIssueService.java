@@ -17,17 +17,6 @@ public class TestIssueService {
 	@Autowired
 	IssueService service;
 
-
-	//	@Test
-	//	void issuesNotNull() {
-	//	      Assertions.assertNotNull(service.getIssues() );
-	//	}
-	//	
-	//	@Test
-	//	void issuesNotEmpty() {
-	//		Assertions.assertTrue(service.getIssues().size() > 0 );
-	//	}
-
 	@Test
 	void createIssue() {
 		Issue i = new Issue();
@@ -126,43 +115,6 @@ public class TestIssueService {
 		Assertions.assertNotNull(issues );
 		Assertions.assertFalse( issues.size() > 0  );
 	}
-
-	
-	//	@Test
-	//	void filterByInvalidReporter() {
-	//		Assertions.assertNotNull(service.filterByReporter("josh") );
-	//		Assertions.assertFalse(service.filterByReporter("josh").size() > 0 );
-	//	}
-	//	
-	//	@Test
-	//	void filterByStatus() {
-	//		Assertions.assertNotNull(service.filterIssuesByStatus("done") );
-	//		Assertions.assertTrue(service.filterIssuesByStatus("done").size() > 0 );
-	//	}
-	//	
-	//	@Test
-	//	void filterByInvalidStatus() {
-	//		Assertions.assertNotNull(service.filterIssuesByStatus("unknown") );
-	//		Assertions.assertFalse(service.filterIssuesByStatus("unknown").size() > 0 );
-	//	}
-	//	
-	//	@Test
-	//	void filterByDates() {
-	//		Assertions.assertNotNull(service.filterIssuesByDate("2017-07-22", "2017-08-02") );
-	//		Assertions.assertTrue(service.filterIssuesByDate("2017-07-22", "2017-08-02").size() > 0 );
-	//	}
-	//	
-	//	@Test
-	//	void filterByInvalidDatesSamples() {
-	//		Assertions.assertNotNull(service.filterIssuesByDate("2017-08-02", "2017-07-22") );
-	//		Assertions.assertFalse(service.filterIssuesByDate("2017-08-02", "2017-07-22").size() > 0 );
-	//	}
-	//	
-	//	@Test
-	//	void sortByCreatedDate() {
-	//		Assertions.assertNotNull(service.sortByCreatedDate("desc") );
-	//		Assertions.assertTrue(service.sortByCreatedDate("desc").size() > 0 );
-	//	}
 
 	@Test
 	void getIssueByPagination() {
